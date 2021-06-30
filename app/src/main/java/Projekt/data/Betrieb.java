@@ -12,6 +12,10 @@ public class Betrieb {
     private String fax;
     private String website;
 
+    public Betrieb() {
+        
+    }
+
     public Betrieb(String uid, String name, String typ, Integer sterne, String adresse, String tel, String email, String fax, String website) {
 
         this.uid = uid;

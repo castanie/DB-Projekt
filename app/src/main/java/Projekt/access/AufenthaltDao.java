@@ -73,12 +73,12 @@ public class AufenthaltDao extends DataAccessObject<Aufenthalt> {
     public void delete(Aufenthalt t) {
         try {
             update.executeUpdate(
-                "DELETE FROM aufenthalt WHERE buchungNr = " + t.getBuchungNr() + "AND gastNr = " + t.getGastNr() + ";");
+                "DELETE FROM aufenthalt WHERE buchungNr = " + t.getBuchungNr() + "AND gastNr = " + t.getGastNr() + ";"
+            );
+            this.cache.remove(t);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        this.cache.remove(t);
     }
 
 }
