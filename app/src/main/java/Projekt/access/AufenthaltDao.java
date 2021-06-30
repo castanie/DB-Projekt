@@ -19,7 +19,8 @@ public class AufenthaltDao extends DataAccessObject<Aufenthalt> {
             update.executeUpdate(
                 "INSERT INTO aufenthalt VALUES("
                 + t.getBuchungNr() + ", "
-                + t.getGastNr() + ") ON CONFLICT DO NOTHING;"
+                + t.getGastNr()
+                + ") ON CONFLICT DO NOTHING;"
             );
             this.cache.add(t);
         } catch (SQLException e) {

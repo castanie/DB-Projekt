@@ -26,7 +26,8 @@ public class BetriebDao extends DataAccessObject<Betrieb> {
                 + t.getTel() + ", "
                 + t.getEmail() + ", "
                 + t.getFax() + ", "
-                + t.getWebsite() + ") ON CONFLICT DO NOTHING;"
+                + t.getWebsite()
+                + ") ON CONFLICT DO NOTHING;"
             );
             this.cache.add(t);
         } catch (SQLException e) {

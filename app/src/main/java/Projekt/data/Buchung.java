@@ -11,6 +11,10 @@ public class Buchung {
     private Date abreise;
     private Integer gastnr;
 
+    public Buchung() {
+        
+    }
+
     public Buchung(Integer buchungNr, String uid, String zimmer, Date anreise, Date abreise, Integer gastnr) {
 
         this.buchungNr = buchungNr;
