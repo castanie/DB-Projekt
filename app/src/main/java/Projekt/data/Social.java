@@ -6,6 +6,10 @@ public class Social {
     private String plattform;
     private String account;
 
+    public Social() {
+        
+    }
+
     public Social(String uid, String plattform, String account) {
 
         this.uid = uid;

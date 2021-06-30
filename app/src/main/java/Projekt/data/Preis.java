@@ -10,6 +10,10 @@ public class Preis {
     private String pensionsart;
     private Double preis;
 
+    public Preis() {
+        
+    }
+
     public Preis(String katbez, Date vondatum, Date bisdatum, String pensionsart, Double preis) {
 
         this.katbez = katbez;

@@ -7,6 +7,10 @@ public class Kategorie {
     private Integer betten;
     private Float flaeche;
 
+    public Kategorie() {
+        
+    }
+
     public Kategorie(String katbez, String beschreibung, Integer betten, Float flaeche) {
 
         this.katbez = katbez;
