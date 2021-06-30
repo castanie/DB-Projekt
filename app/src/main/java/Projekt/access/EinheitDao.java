@@ -1,7 +1,6 @@
 package Projekt.access;
 
 import java.sql.*;
-import java.util.LinkedList;
 import java.util.List;
 
 import Projekt.data.Einheit;
