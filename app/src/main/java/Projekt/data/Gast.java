@@ -13,6 +13,10 @@ public class Gast {
     private String tel;
     private String email;
 
+    public Gast() {
+        
+    }
+
     public Gast(Integer gastnr, String vorname, String nachname, String titel, Date geburtsdatum, String wohnadresse, String tel, String email) {
 
         this.gastnr = gastnr;
