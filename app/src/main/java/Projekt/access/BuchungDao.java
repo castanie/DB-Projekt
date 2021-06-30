@@ -74,7 +74,6 @@ public class BuchungDao extends DataAccessObject<Buchung> {
         try {
             update.executeUpdate(
                 "UPDATE person SET"
-                + "buchungNr = " + t.getBuchungNr() + ", "
                 + "uid = "+ t.getUid() + ", "
                 + "zimmer = "+ t.getZimmer() + ", "
                 + "anreise = "+ t.getAnreise() + ", "
