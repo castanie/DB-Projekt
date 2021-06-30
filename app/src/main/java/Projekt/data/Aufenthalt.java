@@ -1,4 +1,4 @@
-package Projekt;
+package Projekt.data;
 
 public class Aufenthalt {
 
