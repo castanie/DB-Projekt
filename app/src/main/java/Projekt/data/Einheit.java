@@ -16,6 +16,18 @@ public class Einheit {
 
     // Getters:
 
+    public String getUid() {
+        return uid;
+    }
+
+    public String getZimmer() {
+        return zimmer;
+    }
+
+    public String getKatbez() {
+        return katbez;
+    }
+
     // Setters:
 
 }

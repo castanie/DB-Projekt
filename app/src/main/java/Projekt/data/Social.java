@@ -16,6 +16,18 @@ public class Social {
 
     // Getters:
 
+    public String getUid() {
+        return uid;
+    }
+
+    public String getPlattform() {
+        return plattform;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
     // Setters:
 
 }

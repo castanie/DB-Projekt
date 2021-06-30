@@ -22,6 +22,26 @@ public class Preis {
 
     // Getters:
 
+    public String getKatbez() {
+        return katbez;
+    }
+
+    public Date getVondatum() {
+        return vondatum;
+    }
+
+    public Date getBisdatum() {
+        return bisdatum;
+    }
+
+    public String getPensionsart() {
+        return pensionsart;
+    }
+
+    public Double getPreis() {
+        return preis;
+    }
+
     // Setters:
 
 }

@@ -24,6 +24,30 @@ public class Buchung {
 
     // Getters:
 
+    public Integer getBuchungNr() {
+        return buchungNr;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public String getZimmer() {
+        return zimmer;
+    }
+
+    public Date getAnreise() {
+        return anreise;
+    }
+
+    public Date getAbreise() {
+        return abreise;
+    }
+    
+    public Integer getGastnr() {
+        return gastnr;
+    }
+
     // Setters:
 
 }

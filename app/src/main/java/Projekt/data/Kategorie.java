@@ -18,6 +18,22 @@ public class Kategorie {
 
     // Getters:
 
+    public String getKatbez() {
+        return katbez;
+    }
+
+    public String getBeschreibung() {
+        return beschreibung;
+    }
+
+    public Integer getBetten() {
+        return betten;
+    }
+
+    public Float getFlaeche() {
+        return flaeche;
+    }
+
     // Setters:
 
 }

@@ -27,6 +27,42 @@ public class Betrieb {
     }
 
     // Getters:
+    
+    public String getUid() {
+        return uid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getTyp() {
+        return typ;
+    }
+
+    public Integer getSterne() {
+        return sterne;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
 
     // Setters:
 
