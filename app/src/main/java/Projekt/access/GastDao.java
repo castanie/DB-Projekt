@@ -1,17 +1,18 @@
 package Projekt.access;
 
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
 import Projekt.data.Gast;
 
-public class GastDao implements DataAccessObject<Gast> {
+public class GastDao extends DataAccessObject<Gast> {
 
-    private List<Gast> cache;
-
-    public GastDao() {
-        this.cache = new LinkedList<Gast>();
+    public GastDao(Connection conn) {
+        super(conn);
     }
+
+    // Access:
 
     @Override
     public void create(Gast t) {

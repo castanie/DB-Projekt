@@ -1,17 +1,18 @@
 package Projekt.access;
 
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
 import Projekt.data.Buchung;
 
-public class BuchungDao implements DataAccessObject<Buchung> {
+public class BuchungDao extends DataAccessObject<Buchung> {
 
-    private List<Buchung> cache;
-
-    public BuchungDao() {
-        this.cache = new LinkedList<Buchung>();
+    public BuchungDao(Connection conn) {
+        super(conn);
     }
+
+    // Access:
 
     @Override
     public void create(Buchung t) {

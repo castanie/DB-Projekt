@@ -1,17 +1,18 @@
 package Projekt.access;
 
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
 import Projekt.data.Einheit;
 
-public class EinheitDao implements DataAccessObject<Einheit> {
+public class EinheitDao extends DataAccessObject<Einheit> {
 
-    private List<Einheit> cache;
-
-    public EinheitDao() {
-        this.cache = new LinkedList<Einheit>();
+    public EinheitDao(Connection conn) {
+        super(conn);
     }
+
+    // Access:
 
     @Override
     public void create(Einheit t) {

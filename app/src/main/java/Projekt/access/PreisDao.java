@@ -1,17 +1,18 @@
 package Projekt.access;
 
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
 import Projekt.data.Preis;
 
-public class PreisDao implements DataAccessObject<Preis> {
+public class PreisDao extends DataAccessObject<Preis> {
 
-    private List<Preis> cache;
-
-    public PreisDao() {
-        this.cache = new LinkedList<Preis>();
+    public PreisDao(Connection conn) {
+        super(conn);
     }
+
+    // Access:
 
     @Override
     public void create(Preis t) {

@@ -1,17 +1,18 @@
 package Projekt.access;
 
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
 import Projekt.data.Kategorie;
 
-public class KategorieDao implements DataAccessObject<Kategorie> {
+public class KategorieDao extends DataAccessObject<Kategorie> {
 
-    private List<Kategorie> cache;
-
-    public KategorieDao() {
-        this.cache = new LinkedList<Kategorie>();
+    public KategorieDao(Connection conn) {
+        super(conn);
     }
+
+    // Access:
 
     @Override
     public void create(Kategorie t) {

@@ -1,17 +1,17 @@
 package Projekt.access;
 
-import java.util.LinkedList;
+import java.sql.*;
 import java.util.List;
 
 import Projekt.data.Aufenthalt;
 
-public class AufenthaltDao implements DataAccessObject<Aufenthalt> {
+public class AufenthaltDao extends DataAccessObject<Aufenthalt> {
 
-    private List<Aufenthalt> cache;
-
-    public AufenthaltDao() {
-        this.cache = new LinkedList<Aufenthalt>();
+    public AufenthaltDao(Connection conn) {
+        super(conn);
     }
+
+    // Access:
 
     @Override
     public void create(Aufenthalt t) {

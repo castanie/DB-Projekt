@@ -1,17 +1,18 @@
 package Projekt.access;
 
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
 import Projekt.data.Betrieb;
 
-public class BetriebDao implements DataAccessObject<Betrieb> {
+public class BetriebDao extends DataAccessObject<Betrieb> {
 
-    private List<Betrieb> cache;
-
-    public BetriebDao() {
-        this.cache = new LinkedList<Betrieb>();
+    public BetriebDao(Connection conn) {
+        super(conn);
     }
+
+    // Access:
 
     @Override
     public void create(Betrieb t) {

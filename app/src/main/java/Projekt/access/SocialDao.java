@@ -1,16 +1,15 @@
 package Projekt.access;
 
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
 import Projekt.data.Social;
 
-public class SocialDao implements DataAccessObject<Social> {
+public class SocialDao extends DataAccessObject<Social> {
 
-    private List<Social> cache;
-
-    public SocialDao() {
-        this.cache = new LinkedList<Social>();
+    public SocialDao(Connection conn) {
+        super(conn);
     }
 
     // Access:
