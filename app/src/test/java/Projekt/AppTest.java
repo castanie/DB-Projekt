@@ -253,7 +253,7 @@ class AppTest {
     }
 
     @Test
-    public void Aufenthalt()throws SQLException{
+    public void Aufenthalt(){
         b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230","www.hotelvoco.at");
         BetriebDao bd = new BetriebDao(conn);
         bd.create(b1);

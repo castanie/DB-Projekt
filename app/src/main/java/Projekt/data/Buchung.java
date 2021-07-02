@@ -24,6 +24,52 @@ public class Buchung {
 
     // Getters:
 
+    public Integer getBuchungNr() {
+        return buchungNr;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public String getZimmer() {
+        return zimmer;
+    }
+
+    public Date getAnreise() {
+        return anreise;
+    }
+
+    public Date getAbreise() {
+        return abreise;
+    }
+
+    public Integer getGastNr() {
+        return gastnr;
+    }
     // Setters:
 
+    public void setBuchungNr(Integer buchungNr) {
+        this.buchungNr = buchungNr;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public void setZimmer(String zimmer) {
+        this.zimmer = zimmer;
+    }
+
+    public void setAnreise(Date anreise) {
+        this.anreise = anreise;
+    }
+
+    public void setAbreise(Date abreise) {
+        this.abreise = abreise;
+    }
+
+    public void setGastNr(Integer gastnr) {
+        this.gastnr = gastnr;
+    }
 }

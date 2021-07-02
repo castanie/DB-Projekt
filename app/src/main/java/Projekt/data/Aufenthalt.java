@@ -12,6 +12,20 @@ public class Aufenthalt {
 
     // Getters:
 
+    public int getGastNr() {
+        return gastNr;
+    }
+
+    public int getBuchungNr() {
+        return buchungNr;
+    }
     // Setters:
-    
+
+    public void setGastNr(int gastNr) {
+        this.gastNr = gastNr;
+    }
+
+    public void setBuchungNr(int buchungNr) {
+        this.buchungNr = buchungNr;
+    }
 }
