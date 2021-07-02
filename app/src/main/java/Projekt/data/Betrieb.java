@@ -30,4 +30,36 @@ public class Betrieb {
 
     // Setters:
 
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTyp(String typ) {
+        this.typ = typ;
+    }
+
+    public void setSterne(Integer sterne) {
+        this.sterne = sterne;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 }

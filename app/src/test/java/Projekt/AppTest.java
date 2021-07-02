@@ -154,9 +154,6 @@ class AppTest {
 
         ed.readAll();
 
-        e1.setZimmer("Zimmer 201");
-        ed.update(e1);
-
         ed.read("0123");
 
         ed.delete(e2);
@@ -181,9 +178,6 @@ class AppTest {
         sd.create(s3);
 
         sd.readAll();
-
-        s1.setPlattform("Snapchat");
-        sd.update(s1);
 
         sd.read("0123");
 
@@ -242,7 +236,7 @@ class AppTest {
 
         bud.readAll();
 
-        bu1.setGastNr(3);
+        bu1.setAbreise(date);
         bud.update(bu1);
 
         bud.read("2");
@@ -307,9 +301,6 @@ class AppTest {
         AufenthaltDao ad = new AufenthaltDao(conn);
 
         ad.readAll();
-
-        a1.setGastNr(3);
-        ad.update(a1);
 
         ad.read("2");
 

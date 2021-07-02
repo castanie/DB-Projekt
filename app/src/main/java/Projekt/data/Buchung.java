@@ -26,4 +26,12 @@ public class Buchung {
 
     // Setters:
 
+
+    public void setAnreise(Date anreise) {
+        this.anreise = anreise;
+    }
+
+    public void setAbreise(Date abreise) {
+        this.abreise = abreise;
+    }
 }
