@@ -6,6 +6,10 @@ public class Einheit {
     private String zimmer;
     private String katbez;
 
+    public Einheit() {
+        
+    }
+
     public Einheit(String uid, String zimmer, String katbez) {
 
         this.uid = uid;
@@ -15,6 +19,18 @@ public class Einheit {
     }
 
     // Getters:
+
+    public String getUid() {
+        return uid;
+    }
+
+    public String getZimmer() {
+        return zimmer;
+    }
+
+    public String getKatbez() {
+        return katbez;
+    }
 
     // Setters:
 
