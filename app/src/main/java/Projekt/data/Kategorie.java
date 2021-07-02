@@ -18,37 +18,6 @@ public class Kategorie {
 
     // Getters:
 
-    public String getKatbez() {
-        return katbez;
-    }
+    // Setters:
 
-    public String getBeschreibung() {
-        return beschreibung;
-    }
-
-    public Integer getBetten() {
-        return betten;
-    }
-
-    public Float getFlaeche() {
-        return flaeche;
-    }
-
-// Setters:
-
-    public void setKatbez(String katbez) {
-        this.katbez = katbez;
-    }
-
-    public void setBeschreibung(String beschreibung) {
-        this.beschreibung = beschreibung;
-    }
-
-    public void setBetten(Integer betten) {
-        this.betten = betten;
-    }
-
-    public void setFlaeche(Float flaeche) {
-        this.flaeche = flaeche;
-    }
 }

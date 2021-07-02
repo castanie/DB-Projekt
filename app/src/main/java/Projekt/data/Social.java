@@ -16,29 +16,6 @@ public class Social {
 
     // Getters:
 
-    public String getUid() {
-        return uid;
-    }
-
-    public String getPlattform() {
-        return plattform;
-    }
-
-    public String getAccount() {
-        return account;
-    }
     // Setters:
 
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public void setPlattform(String plattform) {
-        this.plattform = plattform;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
 }
