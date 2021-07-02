@@ -5,10 +5,13 @@ import Projekt.data.*;
 import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 class AppTest {
 
     Connection conn;
