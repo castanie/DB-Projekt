@@ -48,4 +48,8 @@ public class Preis {
 
     // Setters:
 
+
+    public void setPreis(Double preis) {
+        this.preis = preis;
+    }
 }

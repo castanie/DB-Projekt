@@ -40,4 +40,15 @@ public class Kategorie {
 
     // Setters:
 
+    public void setBeschreibung(String beschreibung) {
+        this.beschreibung = beschreibung;
+    }
+
+    public void setBetten(Integer betten) {
+        this.betten = betten;
+    }
+
+    public void setFlaeche(Float flaeche) {
+        this.flaeche = flaeche;
+    }
 }
