@@ -32,7 +32,7 @@ public class PreisDao extends DataAccessObject<Preis> {
     }
 
     @Override
-    public Preis read(String key) {
+    public Preis readOne(String key) {
         Preis p = null;
         try {
             Statement stat;

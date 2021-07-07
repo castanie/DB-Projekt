@@ -33,7 +33,7 @@ public class BuchungDao extends DataAccessObject<Buchung> {
     }
 
     @Override
-    public Buchung read(String key) {
+    public Buchung readOne(String key) {
         Buchung b = null;
         try {
             Statement stat;

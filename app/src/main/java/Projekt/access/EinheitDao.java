@@ -30,7 +30,7 @@ public class EinheitDao extends DataAccessObject<Einheit> {
     }
 
     @Override
-    public Einheit read(String key) {
+    public Einheit readOne(String key) {
         Einheit z = null;
         try {
             Statement stat;

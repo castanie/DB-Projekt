@@ -31,7 +31,7 @@ public class KategorieDao extends DataAccessObject<Kategorie> {
     }
 
     @Override
-    public Kategorie read(String key) {
+    public Kategorie readOne(String key) {
         Kategorie k = null;
         try {
             Statement stat;

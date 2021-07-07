@@ -35,7 +35,7 @@ public class GastDao extends DataAccessObject<Gast> {
     }
 
     @Override
-    public Gast read(String key) {
+    public Gast readOne(String key) {
         Gast g = null;
         try {
             Statement stat;

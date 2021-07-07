@@ -71,7 +71,7 @@ class AppTest {
         b1.setSterne(4);
         bd.update(b1);
 
-        bd.read("0123");
+        bd.readOne("0123");
 
         bd.delete(b2);
 
@@ -98,7 +98,7 @@ class AppTest {
         g3.setWohnadresse("Linz");
         gd.update(g3);
 
-        gd.read("3");
+        gd.readOne("3");
 
         gd.delete(g1);
 
@@ -122,7 +122,7 @@ class AppTest {
         k2.setFlaeche(4.42f);
         kd.update(k2);
 
-        kd.read("Doppelzimmer");
+        kd.readOne("Doppelzimmer");
 
         kd.delete(k3);
 
@@ -157,7 +157,7 @@ class AppTest {
 
         ed.readAll();
 
-        ed.read("0123");
+        ed.readOne("0123");
 
         ed.delete(e2);
 
@@ -182,7 +182,7 @@ class AppTest {
 
         sd.readAll();
 
-        sd.read("0123");
+        sd.readOne("0123");
 
         sd.delete(s2);
 
@@ -242,7 +242,7 @@ class AppTest {
         bu1.setAbreise(date);
         bud.update(bu1);
 
-        bud.read("2");
+        bud.readOne("2");
 
         bud.delete(bu2);
 
@@ -305,7 +305,7 @@ class AppTest {
 
         ad.readAll();
 
-        ad.read("2");
+        ad.readOne("2");
 
         ad.delete(a2);
 
@@ -342,7 +342,7 @@ class AppTest {
         p2.setPreis(225.00);
         pd.update(p2);
 
-        pd.read("Doppelzimmer");
+        pd.readOne("Doppelzimmer");
 
         pd.delete(p3);
 

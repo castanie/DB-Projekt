@@ -30,7 +30,7 @@ public class SocialDao extends DataAccessObject<Social> {
     }
 
     @Override
-    public Social read(String key) {
+    public Social readOne(String key) {
         Social s = null;
         try {
             Statement stat;
