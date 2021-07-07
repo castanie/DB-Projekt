@@ -18,6 +18,7 @@ public class Social {
 
     }
 
+
     // Getters:
 
     public String getUid() {
@@ -32,6 +33,15 @@ public class Social {
         return account;
     }
 
+
     // Setters:
+
+
+    // Helpers:
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 
 }

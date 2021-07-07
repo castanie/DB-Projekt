@@ -20,6 +20,7 @@ public class Kategorie {
 
     }
 
+
     // Getters:
 
     public String getKatbez() {
@@ -38,6 +39,7 @@ public class Kategorie {
         return flaeche;
     }
 
+
     // Setters:
 
     public void setBeschreibung(String beschreibung) {
@@ -51,4 +53,13 @@ public class Kategorie {
     public void setFlaeche(Float flaeche) {
         this.flaeche = flaeche;
     }
+
+
+    // Helpers:
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
 }

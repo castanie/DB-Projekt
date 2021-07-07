@@ -30,6 +30,7 @@ public class Betrieb {
 
     }
 
+
     // Getters:
     
     public String getUid() {
@@ -68,8 +69,8 @@ public class Betrieb {
         return website;
     }
 
-    // Setters:
 
+    // Setters:
 
     public void setName(String name) {
         this.name = name;
@@ -102,4 +103,13 @@ public class Betrieb {
     public void setWebsite(String website) {
         this.website = website;
     }
+
+
+    // Helpers:
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
 }

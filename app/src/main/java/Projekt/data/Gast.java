@@ -30,6 +30,7 @@ public class Gast {
 
     }
 
+
     // Getters:
 
     public Integer getGastnr() {
@@ -64,8 +65,8 @@ public class Gast {
         return email;
     }
 
-    // Setters:
 
+    // Setters:
 
     public void setVorname(String vorname) {
         this.vorname = vorname;
@@ -94,4 +95,13 @@ public class Gast {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
+    // Helpers:
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
 }

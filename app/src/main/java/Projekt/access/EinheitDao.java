@@ -51,7 +51,7 @@ public class EinheitDao extends DataAccessObject<Einheit> {
 
             cache.clear();
             while (result.next()) {
-                z = new Einheit();
+                z = fill(result);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,7 +66,7 @@ public class EinheitDao extends DataAccessObject<Einheit> {
 
             cache.clear();
             while (result.next()) {
-                Einheit z = new Einheit();
+                Einheit z = fill(result);
 
                 cache.add(z);
             }
@@ -104,6 +104,15 @@ public class EinheitDao extends DataAccessObject<Einheit> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    Einheit fill(ResultSet result) throws SQLException {
+        return new Einheit(
+            result.getString(1),
+            result.getString(2),
+            result.getString(3)
+        );
     }
 
 }

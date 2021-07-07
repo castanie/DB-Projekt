@@ -45,7 +45,7 @@ public abstract class DataAccessObject<T> {
     ///////////////////////////
 
     // Commit:
-    void commit() {
+    public void commit() {
         try {
             trans.executeUpdate("COMMIT TRANSACTION;");
         } catch (SQLException e) {
@@ -54,12 +54,17 @@ public abstract class DataAccessObject<T> {
     }
 
     // Abort:
-    void abort() {
+    public void abort() {
         try {
             trans.executeUpdate("ROLLBACK TRANSACTION;");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    ///////////////////////////
+
+    // Fill:
+    abstract T fill(ResultSet result) throws SQLException;
     
 }

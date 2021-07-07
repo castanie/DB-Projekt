@@ -50,7 +50,7 @@ public class PreisDao extends DataAccessObject<Preis> {
 
             cache.clear();
             while (result.next()) {
-                p = new Preis();
+                p = fill(result);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,7 +65,7 @@ public class PreisDao extends DataAccessObject<Preis> {
 
             cache.clear();
             while (result.next()) {
-                Preis a = new Preis();
+                Preis a = fill(result);
 
                 cache.add(a);
             }
@@ -100,6 +100,17 @@ public class PreisDao extends DataAccessObject<Preis> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    Preis fill(ResultSet result) throws SQLException {
+        return new Preis(
+            result.getString(1),
+            result.getDate(2),
+            result.getDate(3),
+            result.getString(4),
+            result.getDouble(5)
+        );
     }
     
 }

@@ -50,7 +50,7 @@ public class AufenthaltDao extends DataAccessObject<Aufenthalt> {
 
             cache.clear();
             while (result.next()) {
-                a = new Aufenthalt();
+                a = fill(result);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,7 +65,7 @@ public class AufenthaltDao extends DataAccessObject<Aufenthalt> {
 
             cache.clear();
             while (result.next()) {
-                Aufenthalt a = new Aufenthalt();
+                Aufenthalt a = fill(result);
 
                 cache.add(a);
             }
@@ -93,6 +93,14 @@ public class AufenthaltDao extends DataAccessObject<Aufenthalt> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    Aufenthalt fill(ResultSet result) throws SQLException {
+        return new Aufenthalt(
+                result.getInt(1),
+                result.getInt(2)
+            );
     }
 
 }

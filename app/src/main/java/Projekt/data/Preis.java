@@ -24,6 +24,7 @@ public class Preis {
 
     }
 
+
     // Getters:
 
     public String getKatbez() {
@@ -46,10 +47,19 @@ public class Preis {
         return preis;
     }
 
-    // Setters:
 
+    // Setters:
 
     public void setPreis(Double preis) {
         this.preis = preis;
     }
+
+
+    // Helpers:
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+    
 }

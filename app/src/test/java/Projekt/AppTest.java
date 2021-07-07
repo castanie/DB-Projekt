@@ -3,15 +3,16 @@ package Projekt;
 import Projekt.access.*;
 import Projekt.data.*;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AppTest {
 
     Connection conn;
@@ -21,12 +22,14 @@ class AppTest {
     Aufenthalt a2;
     Aufenthalt a3;
 
-    // String uid, String name, String typ, Integer sterne, String adresse, String tel, String email, String fax, String website
+    // String uid, String name, String typ, Integer sterne, String adresse,
+    // String tel, String email, String fax, String website
     Betrieb b1;
     Betrieb b2;
     Betrieb b3;
 
-    // Integer buchungnr, String uid, String zimmer, Date anreise, Date abreise, Integer gastnr
+    // Integer buchungnr, String uid, String zimmer, Date anreise, Date abreise,
+    // Integer gastnr
     Buchung bu1;
     Buchung bu2;
     Buchung bu3;
@@ -36,7 +39,8 @@ class AppTest {
     Einheit e2;
     Einheit e3;
 
-    // Integer gastnr, String vorname, String nachname, String titel, Date geburtsdatum, String wohnadresse, String tel, String email
+    // Integer gastnr, String vorname, String nachname, String titel,
+    // Date geburtsdatum, String wohnadresse, String tel, String email
     Gast g1;
     Gast g2;
     Gast g3;
@@ -57,43 +61,34 @@ class AppTest {
     Social s3;
 
 
-    @BeforeAll
-    public void setup() throws SQLException{
+    // Setup & Cleanup:
+
+    @BeforeEach
+    public void setup() throws SQLException {
         String url = "jdbc:postgresql://localhost:5432/postgres";
         conn = DriverManager.getConnection(url, "postgres", "password");
     }
 
-    @Test
-    public void test_betrieb(){
-        b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230","www.hotelvoco.at");
-        b2 = new Betrieb("1230", "Holiday Inn", "Apartments", 2, "Klagenfurt", "+437388304758", "holidayinn@apartments.at", "+1231", "www.apartmentsholidayinn.at");
-        b3 = new Betrieb("2301", "Sheraton", "Vacation Homes", 5, "Wien", "+438393204857", "sheraton@vacationhomes.at", "+1232", "www.vacationhomessheraton.at");
-
-        BetriebDao bd = new BetriebDao(conn);
-
-        bd.create(b1);
-        bd.create(b2);
-        bd.create(b3);
-
-
-        b1.setSterne(4);
-        bd.update(b1);
-
-        bd.readOne("0123");
-
-        bd.delete(b2);
-
-        bd.readAll();
+    @AfterEach
+    public void cleanup() throws SQLException {
+        conn.close();
     }
 
 
+    // Tests:
+
     @Test
-    public void test_gast(){
+    public void test_aufenthalt() {
+        b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230",
+                "www.hotelvoco.at");
+        BetriebDao bd = new BetriebDao(conn);
+        bd.create(b1);
+
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
-        g1 = new Gast(1, "Max", "Mustermann", "Herr", date ,"Villach", "+439844295847", "maxmustermann@villach.at" );
-        g2 = new Gast(2, "Linda", "Müller", "Frau", date,"Klagenfurt", "+438729380192", "lindamüller@klagenfurt.at");
-        g3 = new Gast(3,"Thomas", "Bacher", "Herr", date,"Wien", "+438392038727", "thomasbacher@wien.at");
+        g1 = new Gast(1, "Max", "Mustermann", "Herr", date, "Villach", "+439844295847", "maxmustermann@villach.at");
+        g2 = new Gast(2, "Linda", "Müller", "Frau", date, "Klagenfurt", "+438729380192", "lindamüller@klagenfurt.at");
+        g3 = new Gast(3, "Thomas", "Bacher", "Herr", date, "Wien", "+438392038727", "thomasbacher@wien.at");
 
         GastDao gd = new GastDao(conn);
 
@@ -101,51 +96,9 @@ class AppTest {
         gd.create(g2);
         gd.create(g3);
 
-        gd.readAll();
-
-        g3.setWohnadresse("Linz");
-        gd.update(g3);
-
-        gd.readOne("3");
-
-        gd.delete(g1);
-
-        gd.readAll();
-    }
-
-    @Test
-    public void test_kategorie(){
         k1 = new Kategorie("Einzelzimmer", "Ein Bett im Zimmer", 1, 2.04f);
         k2 = new Kategorie("Doppelzimmer", "Zwei Betten im Zimmer", 2, 4.08f);
-        k3 = new Kategorie("Seeblick Klein","Ein Bett im Zimmer mit Blick auf See", 1, 3.06f);
-
-        KategorieDao kd = new KategorieDao(conn);
-
-        kd.create(k1);
-        kd.create(k2);
-        kd.create(k3);
-
-        kd.readAll();
-
-        k2.setFlaeche(4.42f);
-        kd.update(k2);
-
-        kd.readOne("Doppelzimmer");
-
-        kd.delete(k3);
-
-        kd.readAll();
-    }
-
-    @Test
-    public void test_einheit(){
-        b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230","www.hotelvoco.at");
-        BetriebDao bd = new BetriebDao(conn);
-        bd.create(b1);
-
-        k1 = new Kategorie("Einzelzimmer", "Ein Bett im Zimmer", 1, 2.04f);
-        k2 = new Kategorie("Doppelzimmer", "Zwei Betten im Zimmer", 2, 4.08f);
-        k3 = new Kategorie("Seeblick Klein","Ein Bett im Zimmer mit Blick auf See", 1, 3.06f);
+        k3 = new Kategorie("Seeblick Klein", "Ein Bett im Zimmer mit Blick auf See", 1, 3.06f);
 
         KategorieDao kd = new KategorieDao(conn);
 
@@ -163,51 +116,68 @@ class AppTest {
         ed.create(e2);
         ed.create(e3);
 
-        ed.readAll();
+        bu1 = new Buchung(1, "0123", "Zimmer 200", date, date, 1);
+        bu2 = new Buchung(2, "0123", "Zimmer 202", date, date, 2);
+        bu3 = new Buchung(3, "0123", "Zimmer 203", date, date, 3);
 
-        ed.readOne("0123");
+        BuchungDao bud = new BuchungDao(conn);
 
-        ed.delete(e2);
+        bud.create(bu1);
+        bud.create(bu2);
+        bud.create(bu3);
 
-        ed.readAll();
+        a1 = new Aufenthalt(1, 1);
+        a2 = new Aufenthalt(2, 2);
+        a3 = new Aufenthalt(3, 3);
+
+        AufenthaltDao ad = new AufenthaltDao(conn);
+
+        ad.readAll();
+
+        ad.readOne("2");
+
+        ad.delete(a2);
+
+        ad.readAll();
     }
 
     @Test
-    public void test_social(){
-        b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230","www.hotelvoco.at");
+    public void test_betrieb() {
+        b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230",
+                "www.hotelvoco.at");
+        b2 = new Betrieb("1230", "Holiday Inn", "Apartments", 2, "Klagenfurt", "+437388304758",
+                "holidayinn@apartments.at", "+1231", "www.apartmentsholidayinn.at");
+        b3 = new Betrieb("2301", "Sheraton", "Vacation Homes", 5, "Wien", "+438393204857", "sheraton@vacationhomes.at",
+                "+1232", "www.vacationhomessheraton.at");
+
         BetriebDao bd = new BetriebDao(conn);
+
         bd.create(b1);
+        bd.create(b2);
+        bd.create(b3);
 
-        s1 = new Social("0123","Twitter", "HotelVoco");
-        s2 = new Social("0123", "Facebook", "Hotel Voco");
-        s3 = new Social("0123", "Instagram", "Hotel_Voco");
+        b1.setSterne(4);
+        bd.update(b1);
 
-        SocialDao sd = new SocialDao(conn);
+        bd.readOne("0123");
 
-        sd.create(s1);
-        sd.create(s2);
-        sd.create(s3);
+        bd.delete(b2);
 
-        sd.readAll();
-
-        sd.readOne("0123");
-
-        sd.delete(s2);
-
-        sd.readAll();
+        bd.readAll();
     }
 
     @Test
-    public void test_buchung(){
-        b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230","www.hotelvoco.at");
+    public void test_buchung() {
+        b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230",
+                "www.hotelvoco.at");
         BetriebDao bd = new BetriebDao(conn);
         bd.create(b1);
 
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
-        g1 = new Gast(1, "Max", "Mustermann", "Herr", date ,"Villach", "+439844295847", "maxmustermann@villach.at" );
-        g2 = new Gast(2, "Linda", "Müller", "Frau", date,"Klagenfurt", "+438729380192", "lindamüller@klagenfurt.at");
-        g3 = new Gast(3,"Thomas", "Bacher", "Herr", date,"Wien", "+438392038727", "thomasbacher@wien.at");
+        g1 = new Gast(1, "Max", "Mustermann", "Herr", date, "Villach", "+439844295847", "maxmustermann@villach.at");
+        g2 = new Gast(2, "Linda", "Müller", "Frau", date, "Klagenfurt", "+438729380192", "lindamüller@klagenfurt.at");
+        g3 = new Gast(3, "Thomas", "Bacher", "Herr", date, "Wien", "+438392038727", "thomasbacher@wien.at");
 
         GastDao gd = new GastDao(conn);
 
@@ -217,7 +187,7 @@ class AppTest {
 
         k1 = new Kategorie("Einzelzimmer", "Ein Bett im Zimmer", 1, 2.04f);
         k2 = new Kategorie("Doppelzimmer", "Zwei Betten im Zimmer", 2, 4.08f);
-        k3 = new Kategorie("Seeblick Klein","Ein Bett im Zimmer mit Blick auf See", 1, 3.06f);
+        k3 = new Kategorie("Seeblick Klein", "Ein Bett im Zimmer mit Blick auf See", 1, 3.06f);
 
         KategorieDao kd = new KategorieDao(conn);
 
@@ -258,26 +228,15 @@ class AppTest {
     }
 
     @Test
-    public void test_aufenthalt(){
-        b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230","www.hotelvoco.at");
+    public void test_einheit() {
+        b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230",
+                "www.hotelvoco.at");
         BetriebDao bd = new BetriebDao(conn);
         bd.create(b1);
 
-        long millis = System.currentTimeMillis();
-        java.sql.Date date = new java.sql.Date(millis);
-        g1 = new Gast(1, "Max", "Mustermann", "Herr", date ,"Villach", "+439844295847", "maxmustermann@villach.at" );
-        g2 = new Gast(2, "Linda", "Müller", "Frau", date,"Klagenfurt", "+438729380192", "lindamüller@klagenfurt.at");
-        g3 = new Gast(3,"Thomas", "Bacher", "Herr", date,"Wien", "+438392038727", "thomasbacher@wien.at");
-
-        GastDao gd = new GastDao(conn);
-
-        gd.create(g1);
-        gd.create(g2);
-        gd.create(g3);
-
         k1 = new Kategorie("Einzelzimmer", "Ein Bett im Zimmer", 1, 2.04f);
         k2 = new Kategorie("Doppelzimmer", "Zwei Betten im Zimmer", 2, 4.08f);
-        k3 = new Kategorie("Seeblick Klein","Ein Bett im Zimmer mit Blick auf See", 1, 3.06f);
+        k3 = new Kategorie("Seeblick Klein", "Ein Bett im Zimmer mit Blick auf See", 1, 3.06f);
 
         KategorieDao kd = new KategorieDao(conn);
 
@@ -295,39 +254,73 @@ class AppTest {
         ed.create(e2);
         ed.create(e3);
 
-        bu1 = new Buchung(1, "0123", "Zimmer 200", date, date, 1);
-        bu2 = new Buchung(2, "0123", "Zimmer 202", date, date, 2);
-        bu3 = new Buchung(3, "0123", "Zimmer 203", date, date, 3);
+        ed.readAll();
 
-        BuchungDao bud = new BuchungDao(conn);
+        ed.readOne("0123");
 
-        bud.create(bu1);
-        bud.create(bu2);
-        bud.create(bu3);
+        ed.delete(e2);
 
-        a1 = new Aufenthalt(1,1);
-        a2 = new Aufenthalt(2, 2);
-        a3 = new Aufenthalt(3, 3);
-
-        AufenthaltDao ad = new AufenthaltDao(conn);
-
-        ad.readAll();
-
-        ad.readOne("2");
-
-        ad.delete(a2);
-
-        ad.readAll();
+        ed.readAll();
     }
 
     @Test
-    public void test_preis(){
+    public void test_gast() {
+        long millis = System.currentTimeMillis();
+        java.sql.Date date = new java.sql.Date(millis);
+        g1 = new Gast(1, "Max", "Mustermann", "Herr", date, "Villach", "+439844295847", "maxmustermann@villach.at");
+        g2 = new Gast(2, "Linda", "Müller", "Frau", date, "Klagenfurt", "+438729380192", "lindamüller@klagenfurt.at");
+        g3 = new Gast(3, "Thomas", "Bacher", "Herr", date, "Wien", "+438392038727", "thomasbacher@wien.at");
+
+        GastDao gd = new GastDao(conn);
+
+        gd.create(g1);
+        gd.create(g2);
+        gd.create(g3);
+
+        gd.readAll();
+
+        g3.setWohnadresse("Linz");
+        gd.update(g3);
+
+        gd.readOne("3");
+
+        gd.delete(g1);
+
+        gd.readAll();
+    }
+
+    @Test
+    public void test_kategorie() {
+        k1 = new Kategorie("Einzelzimmer", "Ein Bett im Zimmer", 1, 2.04f);
+        k2 = new Kategorie("Doppelzimmer", "Zwei Betten im Zimmer", 2, 4.08f);
+        k3 = new Kategorie("Seeblick Klein", "Ein Bett im Zimmer mit Blick auf See", 1, 3.06f);
+
+        KategorieDao kd = new KategorieDao(conn);
+
+        kd.create(k1);
+        kd.create(k2);
+        kd.create(k3);
+
+        kd.readAll();
+
+        k2.setFlaeche(4.42f);
+        kd.update(k2);
+
+        kd.readOne("Doppelzimmer");
+
+        kd.delete(k3);
+
+        kd.readAll();
+    }
+
+    @Test
+    public void test_preis() {
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
 
         k1 = new Kategorie("Einzelzimmer", "Ein Bett im Zimmer", 1, 2.04f);
         k2 = new Kategorie("Doppelzimmer", "Zwei Betten im Zimmer", 2, 4.08f);
-        k3 = new Kategorie("Seeblick Klein","Ein Bett im Zimmer mit Blick auf See", 1, 3.06f);
+        k3 = new Kategorie("Seeblick Klein", "Ein Bett im Zimmer mit Blick auf See", 1, 3.06f);
 
         KategorieDao kd = new KategorieDao(conn);
 
@@ -355,6 +348,109 @@ class AppTest {
         pd.delete(p3);
 
         pd.readAll();
+    }
+
+    @Test
+    public void test_social() {
+        b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230",
+                "www.hotelvoco.at");
+        BetriebDao bd = new BetriebDao(conn);
+        bd.create(b1);
+
+        s1 = new Social("0123", "Twitter", "HotelVoco");
+        s2 = new Social("0123", "Facebook", "Hotel Voco");
+        s3 = new Social("0123", "Instagram", "Hotel_Voco");
+
+        SocialDao sd = new SocialDao(conn);
+
+        sd.create(s1);
+        sd.create(s2);
+        sd.create(s3);
+
+        sd.readAll();
+
+        sd.readOne("0123");
+
+        sd.delete(s2);
+
+        sd.readAll();
+    }
+
+    @Test
+    public void test_transactionCommit() {
+        try {
+            conn.setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        BetriebDao betriebDao = new BetriebDao(conn);
+        betriebDao.create(new Betrieb("testUID", ";", ";", -1, ";", ";", ";", ";", ";"));
+
+        SocialDao socialDao = new SocialDao(conn);
+        Social social = new Social("testUID", "testPlattform", "testAccount");
+        boolean contains = false;
+
+        for (Social s : socialDao.readAll()) {
+            if (social.equals(s)) {
+                contains = true;
+                break;
+            }
+        }
+        assertFalse(contains);
+
+        // First commit, then "try" to rollback:
+        socialDao.create(social);
+        socialDao.commit();
+        socialDao.abort();
+
+        for (Social s : socialDao.readAll()) {
+            System.out.println(s.getUid());
+            System.out.println(s.getPlattform());
+            System.out.println(s.getAccount());
+            if (social.equals(s)) {
+                contains = true;
+                break;
+            }
+        }
+        assertTrue(contains);
+    }
+
+    @Test
+    public void test_transactionRollback() {
+        try {
+            conn.setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        BetriebDao betriebDao = new BetriebDao(conn);
+        betriebDao.create(new Betrieb("testUID", ";", ";", -1, ";", ";", ";", ";", ";"));
+
+        SocialDao socialDao = new SocialDao(conn);
+        Social social = new Social("testUID", "testPlattform", "testAccount");
+        boolean contains = false;
+
+        for (Social s : socialDao.readAll()) {
+            if (social.equals(s)) {
+                contains = true;
+                break;
+            }
+        }
+        assertFalse(contains);
+
+        // First rollback, then "try" to commit:
+        socialDao.create(social);
+        socialDao.abort();
+        socialDao.commit();
+
+        for (Social s : socialDao.readAll()) {
+            if (social.equals(s)) {
+                contains = true;
+                break;
+            }
+        }
+        assertFalse(contains);
     }
 
 }

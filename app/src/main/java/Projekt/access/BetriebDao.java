@@ -55,7 +55,7 @@ public class BetriebDao extends DataAccessObject<Betrieb> {
 
             cache.clear();
             while (result.next()) {
-                b = new Betrieb();
+                b = fill(result);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ public class BetriebDao extends DataAccessObject<Betrieb> {
 
             cache.clear();
             while (result.next()) {
-                Betrieb a = new Betrieb();
+                Betrieb a = fill(result);
 
                 cache.add(a);
             }
@@ -112,6 +112,21 @@ public class BetriebDao extends DataAccessObject<Betrieb> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    Betrieb fill(ResultSet result) throws SQLException {
+        return new Betrieb(
+            result.getString(1),
+            result.getString(2),
+            result.getString(3),
+            result.getInt(4),
+            result.getString(5),
+            result.getString(6),
+            result.getString(7),
+            result.getString(8),
+            result.getString(9)
+        );
     }
 
 }

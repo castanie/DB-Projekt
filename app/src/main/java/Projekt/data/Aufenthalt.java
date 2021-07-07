@@ -14,6 +14,7 @@ public class Aufenthalt {
         this.gastNr = gastNr;
     }
 
+
     // Getters:
 
     public int getBuchungNr() {
@@ -25,5 +26,13 @@ public class Aufenthalt {
     }
 
     // Setters:
+
+
+    // Helpers:
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 
 }

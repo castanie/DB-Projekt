@@ -52,8 +52,8 @@ public class Buchung {
         return gastnr;
     }
 
-    // Setters:
 
+    // Setters:
 
     public void setAnreise(Date anreise) {
         this.anreise = anreise;
@@ -62,4 +62,13 @@ public class Buchung {
     public void setAbreise(Date abreise) {
         this.abreise = abreise;
     }
+
+
+    // Helpers:
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
 }
