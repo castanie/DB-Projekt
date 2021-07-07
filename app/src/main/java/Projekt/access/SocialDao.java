@@ -9,6 +9,16 @@ public class SocialDao extends DataAccessObject<Social> {
 
     public SocialDao(Connection conn) {
         super(conn);
+
+        try {
+            create = conn.prepareStatement("INSERT INTO social VALUES(?, ?, ?) ON CONFLICT DO NOTHING;");
+            readOne = conn.prepareStatement("SELECT * FROM social WHERE uid = ? AND plattform = ? AND account = ?;");
+            readAll = conn.prepareStatement("SELECT * FROM social;");
+            update = conn.prepareStatement("");
+            delete = conn.prepareStatement("DELETE FROM social WHERE uid = ? AND plattform = ? AND account = ?;");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Access:
@@ -16,13 +26,13 @@ public class SocialDao extends DataAccessObject<Social> {
     @Override
     public void create(Social t) {
         try {
-            update.executeUpdate(
-                "INSERT INTO social VALUES("
-                + t.getUid() + ", "
-                + t.getPlattform() + ", "
-                + t.getAccount()
-                + ") ON CONFLICT DO NOTHING;"
-            );
+            create.setString(1, t.getUid());
+            create.setString(2, t.getPlattform());
+            create.setString(3, t.getAccount());
+
+            create.executeUpdate();
+            create.clearParameters();
+
             this.cache.add(t);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,12 +40,15 @@ public class SocialDao extends DataAccessObject<Social> {
     }
 
     @Override
-    public Social read(String key) {
+    public Social readOne(String key) {
         Social s = null;
         try {
-            Statement stat;
-            stat = conn.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM social;");
+            readOne.setString(1, "");
+            readOne.setString(2, "");
+            readOne.setString(3, "");
+
+            ResultSet result = readOne.executeQuery();
+            readOne.clearParameters();
 
             cache.clear();
             while (result.next()) {
@@ -50,9 +63,7 @@ public class SocialDao extends DataAccessObject<Social> {
     @Override
     public List<Social> readAll() {
         try {
-            Statement stat;
-            stat = conn.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM social;");
+            ResultSet result = readAll.executeQuery();
 
             cache.clear();
             while (result.next()) {
@@ -74,11 +85,7 @@ public class SocialDao extends DataAccessObject<Social> {
     @Override
     public void delete(Social t) {
         try {
-            update.executeUpdate(
-                "DELETE FROM social WHERE uid = " + t.getUid()
-                + " AND plattform = " + t.getPlattform() + ", "
-                + " AND account = " + t.getAccount() + ";"
-            );
+            update.executeUpdate();
             this.cache.remove(t);
         } catch (SQLException e) {
             e.printStackTrace();

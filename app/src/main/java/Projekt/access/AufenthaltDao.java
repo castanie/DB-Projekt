@@ -9,6 +9,16 @@ public class AufenthaltDao extends DataAccessObject<Aufenthalt> {
 
     public AufenthaltDao(Connection conn) {
         super(conn);
+
+        try {
+            create = conn.prepareStatement("INSERT INTO aufenthalt VALUES(?, ?) ON CONFLICT DO NOTHING;");
+            readOne = conn.prepareStatement("SELECT * FROM aufenthalt WHERE buchungNr = ? AND gastNr = ?;");
+            readAll = conn.prepareStatement("SELECT * FROM aufenthalt;");
+            update = conn.prepareStatement("");
+            delete = conn.prepareStatement("DELETE FROM aufenthalt WHERE buchungNr = ? AND gastNr = ?;");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Access:
@@ -16,12 +26,12 @@ public class AufenthaltDao extends DataAccessObject<Aufenthalt> {
     @Override
     public void create(Aufenthalt t) {
         try {
-            update.executeUpdate(
-                "INSERT INTO aufenthalt VALUES("
-                + t.getBuchungNr() + ", "
-                + t.getGastNr()
-                + ") ON CONFLICT DO NOTHING;"
-            );
+            create.setInt(1, t.getBuchungNr());
+            create.setInt(2, t.getGastNr());
+            
+            create.executeUpdate();
+            create.clearParameters();
+
             this.cache.add(t);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -29,12 +39,14 @@ public class AufenthaltDao extends DataAccessObject<Aufenthalt> {
     }
 
     @Override
-    public Aufenthalt read(String key) {
+    public Aufenthalt readOne(String key) {
         Aufenthalt a = null;
         try {
-            Statement stat;
-            stat = conn.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM aufenthalt;");
+            readOne.setInt(1, 0);
+            readOne.setInt(2, 0);
+            
+            ResultSet result = readOne.executeQuery();
+            readOne.clearParameters();
 
             cache.clear();
             while (result.next()) {
@@ -49,9 +61,7 @@ public class AufenthaltDao extends DataAccessObject<Aufenthalt> {
     @Override
     public List<Aufenthalt> readAll() {
         try {
-            Statement stat;
-            stat = conn.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM aufenthalt;");
+            ResultSet result = readAll.executeQuery();
 
             cache.clear();
             while (result.next()) {
@@ -73,9 +83,12 @@ public class AufenthaltDao extends DataAccessObject<Aufenthalt> {
     @Override
     public void delete(Aufenthalt t) {
         try {
-            update.executeUpdate(
-                "DELETE FROM aufenthalt WHERE buchungNr = " + t.getBuchungNr() + "AND gastNr = " + t.getGastNr() + ";"
-            );
+            delete.setInt(1, t.getBuchungNr());
+            delete.setInt(2, t.getGastNr());
+
+            delete.executeUpdate();
+            delete.clearParameters();
+
             this.cache.remove(t);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -7,15 +7,21 @@ import java.util.List;
 public abstract class DataAccessObject<T> {
 
     protected Connection conn;
-    protected Statement update;
+
+    protected Statement trans;
+    protected PreparedStatement create;
+    protected PreparedStatement readOne;
+    protected PreparedStatement readAll;
+    protected PreparedStatement update;
+    protected PreparedStatement delete;
 
     protected List<T> cache;
 
     public DataAccessObject(Connection conn) {
         this.conn = conn;
         try {
-            this.update = conn.createStatement();
-            update.executeUpdate("BEGIN TRANSACTION;");
+            this.trans = conn.createStatement();
+            trans.executeUpdate("BEGIN TRANSACTION;");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -27,7 +33,7 @@ public abstract class DataAccessObject<T> {
     abstract void create(T t);
 
     // Read:
-    abstract T read(String key);
+    abstract T readOne(String key);
     abstract List<T> readAll();
 
     // Update:
@@ -41,7 +47,7 @@ public abstract class DataAccessObject<T> {
     // Commit:
     void commit() {
         try {
-            update.executeUpdate("COMMIT TRANSACTION;");
+            trans.executeUpdate("COMMIT TRANSACTION;");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -50,7 +56,7 @@ public abstract class DataAccessObject<T> {
     // Abort:
     void abort() {
         try {
-            update.executeUpdate("ROLLBACK TRANSACTION;");
+            trans.executeUpdate("ROLLBACK TRANSACTION;");
         } catch (SQLException e) {
             e.printStackTrace();
         }

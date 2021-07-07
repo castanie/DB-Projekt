@@ -2,7 +2,7 @@ package Projekt;
 
 import Projekt.access.*;
 import Projekt.data.*;
-import org.checkerframework.checker.units.qual.A;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -16,35 +16,43 @@ class AppTest {
 
     Connection conn;
 
-    Aufenthalt a1; // gastnr, buchungNr
+    // Integer gastnr, Integer buchungnr
+    Aufenthalt a1;
     Aufenthalt a2;
     Aufenthalt a3;
 
-    Betrieb b1; // String uid, String name, String typ, Integer sterne, String adresse, String tel, String email, String fax, String website
+    // String uid, String name, String typ, Integer sterne, String adresse, String tel, String email, String fax, String website
+    Betrieb b1;
     Betrieb b2;
     Betrieb b3;
 
-    Buchung bu1; // Integer buchungNr, String uid, String zimmer, Date anreise, Date abreise, Integer gastnr
+    // Integer buchungnr, String uid, String zimmer, Date anreise, Date abreise, Integer gastnr
+    Buchung bu1;
     Buchung bu2;
     Buchung bu3;
 
-    Einheit e1; // String uid, String zimmer, String katbez
+    // String uid, String zimmer, String katbez
+    Einheit e1;
     Einheit e2;
     Einheit e3;
 
-    Gast g1; // Integer gastnr, String vorname, String nachname, String titel, Date geburtsdatum, String wohnadresse, String tel, String email
+    // Integer gastnr, String vorname, String nachname, String titel, Date geburtsdatum, String wohnadresse, String tel, String email
+    Gast g1;
     Gast g2;
     Gast g3;
 
-    Kategorie k1; // String katbez, String beschreibung, Integer betten, Float flaeche
+    // String katbez, String beschreibung, Integer betten, Float flaeche
+    Kategorie k1;
     Kategorie k2;
     Kategorie k3;
 
-    Preis p1; // String katbez, Date vondatum, Date bisdatum, String pensionsart, Double preis
+    // String katbez, Date vondatum, Date bisdatum, String pensionsart, Double preis
+    Preis p1;
     Preis p2;
     Preis p3;
 
-    Social s1; // String uid, String plattform, String account
+    // String uid, String plattform, String account
+    Social s1;
     Social s2;
     Social s3;
 
@@ -56,7 +64,7 @@ class AppTest {
     }
 
     @Test
-    public void Betrieb(){
+    public void test_betrieb(){
         b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230","www.hotelvoco.at");
         b2 = new Betrieb("1230", "Holiday Inn", "Apartments", 2, "Klagenfurt", "+437388304758", "holidayinn@apartments.at", "+1231", "www.apartmentsholidayinn.at");
         b3 = new Betrieb("2301", "Sheraton", "Vacation Homes", 5, "Wien", "+438393204857", "sheraton@vacationhomes.at", "+1232", "www.vacationhomessheraton.at");
@@ -71,7 +79,7 @@ class AppTest {
         b1.setSterne(4);
         bd.update(b1);
 
-        bd.read("0123");
+        bd.readOne("0123");
 
         bd.delete(b2);
 
@@ -80,7 +88,7 @@ class AppTest {
 
 
     @Test
-    public void Gast(){
+    public void test_gast(){
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
         g1 = new Gast(1, "Max", "Mustermann", "Herr", date ,"Villach", "+439844295847", "maxmustermann@villach.at" );
@@ -98,7 +106,7 @@ class AppTest {
         g3.setWohnadresse("Linz");
         gd.update(g3);
 
-        gd.read("3");
+        gd.readOne("3");
 
         gd.delete(g1);
 
@@ -106,7 +114,7 @@ class AppTest {
     }
 
     @Test
-    public void Kategorie(){
+    public void test_kategorie(){
         k1 = new Kategorie("Einzelzimmer", "Ein Bett im Zimmer", 1, 2.04f);
         k2 = new Kategorie("Doppelzimmer", "Zwei Betten im Zimmer", 2, 4.08f);
         k3 = new Kategorie("Seeblick Klein","Ein Bett im Zimmer mit Blick auf See", 1, 3.06f);
@@ -122,7 +130,7 @@ class AppTest {
         k2.setFlaeche(4.42f);
         kd.update(k2);
 
-        kd.read("Doppelzimmer");
+        kd.readOne("Doppelzimmer");
 
         kd.delete(k3);
 
@@ -130,7 +138,7 @@ class AppTest {
     }
 
     @Test
-    public void Einheit(){
+    public void test_einheit(){
         b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230","www.hotelvoco.at");
         BetriebDao bd = new BetriebDao(conn);
         bd.create(b1);
@@ -157,7 +165,7 @@ class AppTest {
 
         ed.readAll();
 
-        ed.read("0123");
+        ed.readOne("0123");
 
         ed.delete(e2);
 
@@ -165,7 +173,7 @@ class AppTest {
     }
 
     @Test
-    public void Social(){
+    public void test_social(){
         b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230","www.hotelvoco.at");
         BetriebDao bd = new BetriebDao(conn);
         bd.create(b1);
@@ -182,7 +190,7 @@ class AppTest {
 
         sd.readAll();
 
-        sd.read("0123");
+        sd.readOne("0123");
 
         sd.delete(s2);
 
@@ -190,7 +198,7 @@ class AppTest {
     }
 
     @Test
-    public void Buchung(){
+    public void test_buchung(){
         b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230","www.hotelvoco.at");
         BetriebDao bd = new BetriebDao(conn);
         bd.create(b1);
@@ -242,7 +250,7 @@ class AppTest {
         bu1.setAbreise(date);
         bud.update(bu1);
 
-        bud.read("2");
+        bud.readOne("2");
 
         bud.delete(bu2);
 
@@ -250,7 +258,7 @@ class AppTest {
     }
 
     @Test
-    public void Aufenthalt(){
+    public void test_aufenthalt(){
         b1 = new Betrieb("0123", "Voco", "Hotel", 3, "Villach", "+436346343674", "voco@hotel.at", "+1230","www.hotelvoco.at");
         BetriebDao bd = new BetriebDao(conn);
         bd.create(b1);
@@ -305,7 +313,7 @@ class AppTest {
 
         ad.readAll();
 
-        ad.read("2");
+        ad.readOne("2");
 
         ad.delete(a2);
 
@@ -313,7 +321,7 @@ class AppTest {
     }
 
     @Test
-    public void Preis(){
+    public void test_preis(){
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
 
@@ -342,7 +350,7 @@ class AppTest {
         p2.setPreis(225.00);
         pd.update(p2);
 
-        pd.read("Doppelzimmer");
+        pd.readOne("Doppelzimmer");
 
         pd.delete(p3);
 
