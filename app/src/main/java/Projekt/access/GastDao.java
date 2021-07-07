@@ -11,10 +11,10 @@ public class GastDao extends DataAccessObject<Gast> {
         super(conn);
 
         try {
-            create = conn.prepareStatement("INSERT INTO betrieb VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING;");
+            create = conn.prepareStatement("INSERT INTO gast VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING;");
             readOne = conn.prepareStatement("SELECT * FROM gast WHERE gastnr = ?;");
             readAll = conn.prepareStatement("SELECT * FROM gast;");
-            update = conn.prepareStatement("UPDATE person SET vorname = ?, nachname = ?, titel = ?, geburtsdatum = ?, wohnadresse = ?, tel = ?, email = ? WHERE gastnr = ?;");
+            update = conn.prepareStatement("UPDATE gast SET vorname = ?, nachname = ?, titel = ?, geburtsdatum = ?, wohnadresse = ?, tel = ?, email = ? WHERE gastnr = ?;");
             delete = conn.prepareStatement("DELETE FROM gast WHERE gastnr = ?;");
         } catch (Exception e) {
             e.printStackTrace();
@@ -26,29 +26,14 @@ public class GastDao extends DataAccessObject<Gast> {
     @Override
     public void create(Gast t) {
         try {
-            /*
-            update.executeUpdate(
-                "INSERT INTO betrieb VALUES("
-                + "DEFAULT" + ", "
-                + t.getVorname() + ", "
-                + t.getNachname() + ", "
-                + t.getTitel() + ", "
-                + t.getGeburtsdatum() + ", "
-                + t.getWohnadresse() + ", "
-                + t.getTel() + ", "
-                + t.getEmail()
-                + ") ON CONFLICT DO NOTHING;"
-            );
-            */
-
-            create.setString(1, "DEFAULT");
-            create.setString(2, t.getVorname());
-            create.setString(3, t.getNachname());
-            create.setString(4, t.getTitel());
-            create.setDate(5, t.getGeburtsdatum());
-            create.setString(6, t.getWohnadresse());
-            create.setString(7, t.getTel());
-            create.setString(8, t.getEmail());
+            // create.setString(0, "DEFAULT");
+            create.setString(1, t.getVorname());
+            create.setString(2, t.getNachname());
+            create.setString(3, t.getTitel());
+            create.setDate(4, t.getGeburtsdatum());
+            create.setString(5, t.getWohnadresse());
+            create.setString(6, t.getTel());
+            create.setString(7, t.getEmail());
 
             create.executeUpdate();
             create.clearParameters();
@@ -63,11 +48,7 @@ public class GastDao extends DataAccessObject<Gast> {
     public Gast readOne(String key) {
         Gast g = null;
         try {
-            /*
-            Statement stat;
-            stat = conn.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM gast;");
-            */
+            readOne.setInt(1, 0);
 
             ResultSet result = readOne.executeQuery();
             readOne.clearParameters();
@@ -85,12 +66,6 @@ public class GastDao extends DataAccessObject<Gast> {
     @Override
     public List<Gast> readAll() {
         try {
-            /*
-            Statement stat;
-            stat = conn.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM gast;");
-            */
-
             ResultSet result = readAll.executeQuery();
 
             cache.clear();
@@ -108,20 +83,6 @@ public class GastDao extends DataAccessObject<Gast> {
     @Override
     public void update(Gast t) {
         try {
-            /*
-            update.executeUpdate(
-                "UPDATE person SET"
-                + "vorname = " + t.getVorname() + ", "
-                + "nachname = " + t.getNachname() + ", "
-                + "titel = " + t.getTitel() + ", "
-                + "geburtsdatum = " + t.getGeburtsdatum() + ", "
-                + "wohnadresse = " + t.getWohnadresse() + ", "
-                + "tel = " + t.getTel() + ", "
-                + "email = " + t.getEmail()
-                + " WHERE gastnr = " + t.getGastnr() + ";"
-            );
-            */
-
             update.setString(1, t.getVorname());
             update.setString(2, t.getNachname());
             update.setString(3, t.getTitel());
@@ -142,7 +103,8 @@ public class GastDao extends DataAccessObject<Gast> {
     @Override
     public void delete(Gast t) {
         try {
-            update.executeUpdate();
+            delete.setInt(1, t.getGastnr());
+            delete.executeUpdate();
             this.cache.remove(t);
         } catch (SQLException e) {
             e.printStackTrace();

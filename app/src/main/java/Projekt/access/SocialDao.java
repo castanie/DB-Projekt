@@ -26,16 +26,6 @@ public class SocialDao extends DataAccessObject<Social> {
     @Override
     public void create(Social t) {
         try {
-            /*
-            update.executeUpdate(
-                "INSERT INTO social VALUES("
-                + t.getUid() + ", "
-                + t.getPlattform() + ", "
-                + t.getAccount()
-                + ") ON CONFLICT DO NOTHING;"
-            );
-            */
-
             create.setString(1, t.getUid());
             create.setString(2, t.getPlattform());
             create.setString(3, t.getAccount());
@@ -53,11 +43,9 @@ public class SocialDao extends DataAccessObject<Social> {
     public Social readOne(String key) {
         Social s = null;
         try {
-            /*
-            Statement stat;
-            stat = conn.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM social;");
-            */
+            readOne.setString(1, "");
+            readOne.setString(2, "");
+            readOne.setString(3, "");
 
             ResultSet result = readOne.executeQuery();
             readOne.clearParameters();
@@ -75,12 +63,6 @@ public class SocialDao extends DataAccessObject<Social> {
     @Override
     public List<Social> readAll() {
         try {
-            /*
-            Statement stat;
-            stat = conn.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM social;");
-            */
-
             ResultSet result = readAll.executeQuery();
 
             cache.clear();

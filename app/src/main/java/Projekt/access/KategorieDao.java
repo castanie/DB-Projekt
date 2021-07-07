@@ -11,11 +11,11 @@ public class KategorieDao extends DataAccessObject<Kategorie> {
         super(conn);
 
         try {
-            create = conn.prepareStatement("INSERT INTO betrieb VALUES(?, ?, ?, ?) ON CONFLICT DO NOTHING;");
+            create = conn.prepareStatement("INSERT INTO kategorie VALUES(?, ?, ?, ?) ON CONFLICT DO NOTHING;");
             readOne = conn.prepareStatement("SELECT * FROM kategorie WHERE katbez = ?;");
             readAll = conn.prepareStatement("SELECT * FROM kategorie;");
-            update = conn.prepareStatement("UPDATE person SET beschreibung = ?, betten = ?, flaeche = ? WHERE katbez = ?;");
-            delete = conn.prepareStatement("DELETE FROM betrieb WHERE katbez = ?;");
+            update = conn.prepareStatement("UPDATE kategorie SET beschreibung = ?, betten = ?, flaeche = ? WHERE katbez = ?;");
+            delete = conn.prepareStatement("DELETE FROM kategorie WHERE katbez = ?;");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -26,17 +26,6 @@ public class KategorieDao extends DataAccessObject<Kategorie> {
     @Override
     public void create(Kategorie t) {
         try {
-            /*
-            update.executeUpdate(
-                "INSERT INTO betrieb VALUES("
-                + t.getKatbez() + ", "
-                + t.getBeschreibung() + ", "
-                + t.getBetten() + ", "
-                + t.getFlaeche()
-                + ") ON CONFLICT DO NOTHING;"
-            );
-            */
-
             create.setString(1, t.getKatbez());
             create.setString(2, t.getBeschreibung());
             create.setInt(3, t.getBetten());
@@ -55,11 +44,7 @@ public class KategorieDao extends DataAccessObject<Kategorie> {
     public Kategorie readOne(String key) {
         Kategorie k = null;
         try {
-            /*
-            Statement stat;
-            stat = conn.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM kategorie;");
-            */
+            readOne.setString(1, "");
 
             ResultSet result = readOne.executeQuery();
             readOne.clearParameters();
@@ -77,12 +62,6 @@ public class KategorieDao extends DataAccessObject<Kategorie> {
     @Override
     public List<Kategorie> readAll() {
         try {
-            /*
-            Statement stat;
-            stat = conn.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM kategorie;");
-            */
-
             ResultSet result = readAll.executeQuery();
 
             cache.clear();
@@ -100,16 +79,6 @@ public class KategorieDao extends DataAccessObject<Kategorie> {
     @Override
     public void update(Kategorie t) {
         try {
-            /*
-            update.executeUpdate(
-                "UPDATE person SET"
-                + "beschreibung = " + t.getBeschreibung() + ", "
-                + "betten = " + t.getBetten() + ", "
-                + "flaeche = " + t.getFlaeche()
-                + " WHERE katbez = " + t.getKatbez() + ";"
-            );
-            */
-
             update.setString(1, t.getBeschreibung());
             update.setInt(2, t.getBetten());
             update.setFloat(3, t.getFlaeche());
@@ -126,7 +95,11 @@ public class KategorieDao extends DataAccessObject<Kategorie> {
     @Override
     public void delete(Kategorie t) {
         try {
-            update.executeUpdate();
+            delete.setString(1, "");
+
+            delete.executeUpdate();
+            delete.clearParameters();
+
             this.cache.remove(t);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -14,7 +14,7 @@ public class BetriebDao extends DataAccessObject<Betrieb> {
             create = conn.prepareStatement("INSERT INTO betrieb VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING;");
             readOne = conn.prepareStatement("SELECT * FROM betrieb WHERE uid = ?;");
             readAll = conn.prepareStatement("SELECT * FROM betrieb;");
-            update = conn.prepareStatement("UPDATE person SET name = ?, typ = ?, sterne = ?, adresse = ?, tel = ?, email = ?, fax = ?, website = ? WHERE uid = ?;");
+            update = conn.prepareStatement("UPDATE betrieb SET name = ?, typ = ?, sterne = ?, adresse = ?, tel = ?, email = ?, fax = ?, website = ? WHERE uid = ?;");
             delete = conn.prepareStatement("DELETE FROM betrieb WHERE uid = ?;");
         } catch (Exception e) {
             e.printStackTrace();
@@ -26,22 +26,6 @@ public class BetriebDao extends DataAccessObject<Betrieb> {
     @Override
     public void create(Betrieb t) {
         try {
-            /*
-            update.executeUpdate(
-                "INSERT INTO betrieb VALUES("
-                + t.getUid() + ", "
-                + t.getName() + ", "
-                + t.getTyp() + ", "
-                + t.getSterne() + ", "
-                + t.getAdresse() + ", "
-                + t.getTel() + ", "
-                + t.getEmail() + ", "
-                + t.getFax() + ", "
-                + t.getWebsite()
-                + ") ON CONFLICT DO NOTHING;"
-            );
-            */
-
             create.setString(1, t.getUid());
             create.setString(2, t.getName());
             create.setString(3, t.getTyp());
@@ -64,12 +48,6 @@ public class BetriebDao extends DataAccessObject<Betrieb> {
     public Betrieb readOne(String key) {
         Betrieb b = null;
         try {
-            /*
-            Statement stat;
-            stat = conn.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM betrieb;");
-            */
-
             readOne.setString(1, "");
 
             ResultSet result = readOne.executeQuery();
@@ -88,12 +66,6 @@ public class BetriebDao extends DataAccessObject<Betrieb> {
     @Override
     public List<Betrieb> readAll() {
         try {
-            /*
-            Statement stat;
-            stat = conn.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM betrieb;");
-            */
-
             ResultSet result = readAll.executeQuery();
 
             cache.clear();
@@ -111,21 +83,6 @@ public class BetriebDao extends DataAccessObject<Betrieb> {
     @Override
     public void update(Betrieb t) {
         try {
-            /*
-            update.executeUpdate(
-                "UPDATE person SET"
-                + "name = " + t.getName() + ", "
-                + "typ = " + t.getTyp() + ", "
-                + "sterne = " + t.getSterne() + ", "
-                + "adresse = " + t.getAdresse() + ", "
-                + "tel = " + t.getTel() + ", "
-                + "email = " + t.getEmail() + ", "
-                + "fax = " + t.getFax() + ", "
-                + "website = " + t.getWebsite()
-                + " WHERE uid = " + t.getUid() + ";"
-            );
-            */
-
             update.setString(1, t.getName());
             update.setString(2, t.getTyp());
             update.setInt(3, t.getSterne());

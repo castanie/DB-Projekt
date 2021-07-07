@@ -26,15 +26,6 @@ public class AufenthaltDao extends DataAccessObject<Aufenthalt> {
     @Override
     public void create(Aufenthalt t) {
         try {
-            /*
-            update.executeUpdate(
-                "INSERT INTO aufenthalt VALUES("
-                + t.getBuchungNr() + ", "
-                + t.getGastNr()
-                + ") ON CONFLICT DO NOTHING;"
-            );
-            */
-
             create.setInt(1, t.getBuchungNr());
             create.setInt(2, t.getGastNr());
             
@@ -51,12 +42,6 @@ public class AufenthaltDao extends DataAccessObject<Aufenthalt> {
     public Aufenthalt readOne(String key) {
         Aufenthalt a = null;
         try {
-            /*
-            Statement stat;
-            stat = conn.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM aufenthalt;");
-            */
-
             readOne.setInt(1, 0);
             readOne.setInt(2, 0);
             
@@ -76,12 +61,6 @@ public class AufenthaltDao extends DataAccessObject<Aufenthalt> {
     @Override
     public List<Aufenthalt> readAll() {
         try {
-            /*
-            Statement stat;
-            stat = conn.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM aufenthalt;");
-            */
-
             ResultSet result = readAll.executeQuery();
 
             cache.clear();
