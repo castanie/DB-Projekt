@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.*;
 
 class AppTest {
@@ -63,9 +66,14 @@ class AppTest {
     // Setup & Cleanup:
 
     @BeforeEach
-    public void setup() throws SQLException {
+    public void setup() throws SQLException, IOException {
         String url = "jdbc:postgresql://localhost:5432/postgres";
         conn = DriverManager.getConnection(url, "postgres", "password");
+
+        // System.out.println(System.getProperty("user.dir"));
+
+        Statement stat = conn.createStatement();
+        stat.executeUpdate(Files.readString(Path.of("../booking.sql")));
     }
 
     @AfterEach
