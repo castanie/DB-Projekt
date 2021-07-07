@@ -11,7 +11,7 @@ public class Preis {
     private Double preis;
 
     public Preis() {
-        
+
     }
 
     public Preis(String katbez, Date vondatum, Date bisdatum, String pensionsart, Double preis) {
@@ -48,8 +48,26 @@ public class Preis {
 
     // Setters:
 
-
     public void setPreis(Double preis) {
         this.preis = preis;
     }
+
+    // Helpers:
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean equal = false;
+
+        if (obj instanceof Preis) {
+            Preis com = (Preis) obj;
+            if (this.bisdatum.equals(com.getBisdatum()) && this.katbez.equals(com.getKatbez())
+                    && this.pensionsart.equals(com.getPensionsart()) && this.preis.equals(com.getPreis())
+                    && this.vondatum.equals(com.getVondatum())) {
+                equal = true;
+            }
+        }
+
+        return equal;
+    }
+
 }

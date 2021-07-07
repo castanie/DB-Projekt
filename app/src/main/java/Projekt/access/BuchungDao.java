@@ -53,7 +53,7 @@ public class BuchungDao extends DataAccessObject<Buchung> {
 
             cache.clear();
             while (result.next()) {
-                b = new Buchung();
+                b = fill(result);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,7 +68,7 @@ public class BuchungDao extends DataAccessObject<Buchung> {
 
             cache.clear();
             while (result.next()) {
-                Buchung b = new Buchung();
+                Buchung b = fill(result);
 
                 cache.add(b);
             }
@@ -107,6 +107,18 @@ public class BuchungDao extends DataAccessObject<Buchung> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    Buchung fill(ResultSet result) throws SQLException {
+        return new Buchung(
+            result.getInt(1),
+            result.getString(2),
+            result.getString(3),
+            result.getDate(4),
+            result.getDate(5),
+            result.getInt(6)
+        );
     }
 
 }

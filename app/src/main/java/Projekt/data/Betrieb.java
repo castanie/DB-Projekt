@@ -13,10 +13,11 @@ public class Betrieb {
     private String website;
 
     public Betrieb() {
-        
+
     }
 
-    public Betrieb(String uid, String name, String typ, Integer sterne, String adresse, String tel, String email, String fax, String website) {
+    public Betrieb(String uid, String name, String typ, Integer sterne, String adresse, String tel, String email,
+            String fax, String website) {
 
         this.uid = uid;
         this.name = name;
@@ -31,7 +32,7 @@ public class Betrieb {
     }
 
     // Getters:
-    
+
     public String getUid() {
         return uid;
     }
@@ -70,7 +71,6 @@ public class Betrieb {
 
     // Setters:
 
-
     public void setName(String name) {
         this.name = name;
     }
@@ -102,4 +102,25 @@ public class Betrieb {
     public void setWebsite(String website) {
         this.website = website;
     }
+
+    // Helpers:
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean equal = false;
+
+        if (obj instanceof Betrieb) {
+            Betrieb com = (Betrieb) obj;
+            if (this.adresse.equals(com.getAdresse()) && this.email.equals(com.getEmail())
+                    && this.fax.equals(com.getFax()) && this.name.equals(com.getName())
+                    && this.sterne.equals(com.getSterne()) && this.tel.equals(com.getTel())
+                    && this.typ.equals(com.getTyp()) && this.uid.equals(com.getUid())
+                    && this.website.equals(com.getWebsite())) {
+                equal = true;
+            }
+        }
+
+        return equal;
+    }
+
 }

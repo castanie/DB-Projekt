@@ -51,7 +51,7 @@ public class KategorieDao extends DataAccessObject<Kategorie> {
 
             cache.clear();
             while (result.next()) {
-                k = new Kategorie();
+                k = fill(result);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,7 +66,7 @@ public class KategorieDao extends DataAccessObject<Kategorie> {
 
             cache.clear();
             while (result.next()) {
-                Kategorie k = new Kategorie();
+                Kategorie k = fill(result);
 
                 cache.add(k);
             }
@@ -104,6 +104,16 @@ public class KategorieDao extends DataAccessObject<Kategorie> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    Kategorie fill(ResultSet result) throws SQLException {
+        return new Kategorie(
+            result.getString(1),
+            result.getString(2),
+            result.getInt(3),
+            result.getFloat(4)
+        );
     }
 
 }

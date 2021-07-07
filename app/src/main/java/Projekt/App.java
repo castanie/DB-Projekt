@@ -18,8 +18,4 @@ public class App {
         
     }
 
-    // TODO: Move to respective DAOs!
-
-    
-
 }

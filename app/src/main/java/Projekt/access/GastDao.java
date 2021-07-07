@@ -55,7 +55,7 @@ public class GastDao extends DataAccessObject<Gast> {
 
             cache.clear();
             while (result.next()) {
-                g = new Gast();
+                g = fill(result);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ public class GastDao extends DataAccessObject<Gast> {
 
             cache.clear();
             while (result.next()) {
-                Gast g = new Gast();
+                Gast g = fill(result);
 
                 cache.add(g);
             }
@@ -109,6 +109,20 @@ public class GastDao extends DataAccessObject<Gast> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    Gast fill(ResultSet result) throws SQLException {
+        return new Gast(
+            result.getInt(1),
+            result.getString(2),
+            result.getString(3),
+            result.getString(4),
+            result.getDate(5),
+            result.getString(6),
+            result.getString(7),
+            result.getString(8)
+        );
     }
 
 }

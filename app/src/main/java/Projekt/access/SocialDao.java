@@ -52,7 +52,7 @@ public class SocialDao extends DataAccessObject<Social> {
 
             cache.clear();
             while (result.next()) {
-                s = new Social();
+                s = fill(result);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class SocialDao extends DataAccessObject<Social> {
 
             cache.clear();
             while (result.next()) {
-                Social s = new Social();
+                Social s = fill(result);
 
                 cache.add(s);
             }
@@ -90,6 +90,15 @@ public class SocialDao extends DataAccessObject<Social> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    Social fill(ResultSet result) throws SQLException {
+        return new Social(
+            result.getString(1),
+            result.getString(2),
+            result.getString(3)
+        );
     }
 
 }

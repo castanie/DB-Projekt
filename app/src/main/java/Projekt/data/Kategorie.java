@@ -8,7 +8,7 @@ public class Kategorie {
     private Float flaeche;
 
     public Kategorie() {
-        
+
     }
 
     public Kategorie(String katbez, String beschreibung, Integer betten, Float flaeche) {
@@ -51,4 +51,22 @@ public class Kategorie {
     public void setFlaeche(Float flaeche) {
         this.flaeche = flaeche;
     }
+
+    // Helpers:
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean equal = false;
+
+        if (obj instanceof Kategorie) {
+            Kategorie com = (Kategorie) obj;
+            if (this.beschreibung.equals(com.getBeschreibung()) && this.betten.equals(com.getBetten())
+                    && this.flaeche.equals(com.getFlaeche()) && this.katbez.equals(com.getKatbez())) {
+                equal = true;
+            }
+        }
+
+        return equal;
+    }
+
 }

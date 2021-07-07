@@ -14,10 +14,11 @@ public class Gast {
     private String email;
 
     public Gast() {
-        
+
     }
 
-    public Gast(Integer gastnr, String vorname, String nachname, String titel, Date geburtsdatum, String wohnadresse, String tel, String email) {
+    public Gast(Integer gastnr, String vorname, String nachname, String titel, Date geburtsdatum, String wohnadresse,
+            String tel, String email) {
 
         this.gastnr = gastnr;
         this.vorname = vorname;
@@ -66,7 +67,6 @@ public class Gast {
 
     // Setters:
 
-
     public void setVorname(String vorname) {
         this.vorname = vorname;
     }
@@ -94,4 +94,24 @@ public class Gast {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    // Helpers:
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean equal = false;
+
+        if (obj instanceof Gast) {
+            Gast com = (Gast) obj;
+            if (this.email.equals(com.getEmail()) && this.gastnr.equals(com.getGastnr())
+                    && this.geburtsdatum.equals(com.getGeburtsdatum()) && this.nachname.equals(com.getNachname())
+                    && this.tel.equals(com.getTel()) && this.titel.equals(com.getTitel())
+                    && this.vorname.equals(com.getVorname()) && this.wohnadresse.equals(com.getWohnadresse())) {
+                equal = true;
+            }
+        }
+
+        return equal;
+    }
+
 }
