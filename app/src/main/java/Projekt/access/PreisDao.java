@@ -9,6 +9,16 @@ public class PreisDao extends DataAccessObject<Preis> {
 
     public PreisDao(Connection conn) {
         super(conn);
+
+        try {
+            create = conn.prepareStatement("INSERT INTO betrieb VALUES(?, ?, ?, ?, ?) ON CONFLICT DO NOTHING;");
+            readOne = conn.prepareStatement("SELECT * FROM preis WHERE katbez = ? AND vondatum = ? AND bisdatum = ? AND pensionsart = ?;");
+            readAll = conn.prepareStatement("SELECT * FROM preis;");
+            update = conn.prepareStatement("UPDATE person SET preis = ? WHERE katbez = ? AND vondatum = ? AND bisdatum = ? AND pensionsart = ?;");
+            delete = conn.prepareStatement("DELETE FROM preis WHERE katbez = ? AND vondatum = ? AND bisdatum = ? AND pensionsart = ?;");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Access:
@@ -16,6 +26,7 @@ public class PreisDao extends DataAccessObject<Preis> {
     @Override
     public void create(Preis t) {
         try {
+            /*
             update.executeUpdate(
                 "INSERT INTO betrieb VALUES("
                 + t.getKatbez() + ", "
@@ -25,6 +36,17 @@ public class PreisDao extends DataAccessObject<Preis> {
                 + t.getPreis()
                 + ") ON CONFLICT DO NOTHING;"
             );
+            */
+
+            create.setString(1, t.getKatbez());
+            create.setDate(2, t.getVondatum());
+            create.setDate(3, t.getBisdatum());
+            create.setString(4, t.getPensionsart());
+            create.setDouble(5, t.getPreis());
+
+            create.executeUpdate();
+            create.clearParameters();
+
             this.cache.add(t);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,9 +57,14 @@ public class PreisDao extends DataAccessObject<Preis> {
     public Preis readOne(String key) {
         Preis p = null;
         try {
+            /*
             Statement stat;
             stat = conn.createStatement();
             ResultSet result = stat.executeQuery("SELECT * FROM preis;");
+            */
+
+            ResultSet result = readOne.executeQuery();
+            readOne.clearParameters();
 
             cache.clear();
             while (result.next()) {
@@ -52,9 +79,13 @@ public class PreisDao extends DataAccessObject<Preis> {
     @Override
     public List<Preis> readAll() {
         try {
+            /*
             Statement stat;
             stat = conn.createStatement();
             ResultSet result = stat.executeQuery("SELECT * FROM preis;");
+            */
+
+            ResultSet result = readAll.executeQuery();
 
             cache.clear();
             while (result.next()) {
@@ -71,6 +102,7 @@ public class PreisDao extends DataAccessObject<Preis> {
     @Override
     public void update(Preis t) {
         try {
+            /*
             update.executeUpdate(
                 "UPDATE person SET"
                 + "preis = " + t.getPreis()
@@ -79,6 +111,17 @@ public class PreisDao extends DataAccessObject<Preis> {
                 + " AND bisdatum = " + t.getBisdatum()
                 + " AND pensionsart = " + t.getPensionsart() + ";"
             );
+            */
+
+            update.setDouble(1, t.getPreis());
+            update.setString(2, t.getKatbez());
+            update.setDate(3, t.getVondatum());
+            update.setDate(4, t.getBisdatum());
+            update.setString(5, t.getPensionsart());
+
+            update.executeUpdate();
+            update.clearParameters();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,12 +130,7 @@ public class PreisDao extends DataAccessObject<Preis> {
     @Override
     public void delete(Preis t) {
         try {
-            update.executeUpdate(
-                "DELETE FROM preis + WHERE katbez = " + t.getKatbez() 
-                + " AND vondatum = " + t.getVondatum()
-                + " AND bisdatum = " + t.getBisdatum()
-                + " AND pensionsart = " + t.getPensionsart() + ";"
-            );
+            update.executeUpdate();
             this.cache.remove(t);
         } catch (SQLException e) {
             e.printStackTrace();
