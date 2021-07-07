@@ -7,7 +7,7 @@ public class Einheit {
     private String katbez;
 
     public Einheit() {
-        
+
     }
 
     public Einheit(String uid, String zimmer, String katbez) {
@@ -17,7 +17,6 @@ public class Einheit {
         this.katbez = katbez;
 
     }
-
 
     // Getters:
 
@@ -33,15 +32,23 @@ public class Einheit {
         return katbez;
     }
 
-
     // Setters:
-
 
     // Helpers:
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        boolean equal = false;
+
+        if (obj instanceof Einheit) {
+            Einheit com = (Einheit) obj;
+            if (this.katbez.equals(com.getKatbez()) && this.uid.equals(com.getUid())
+                    && this.zimmer.equals(com.getZimmer())) {
+                equal = true;
+            }
+        }
+
+        return equal;
     }
 
 }

@@ -7,7 +7,7 @@ public class Social {
     private String account;
 
     public Social() {
-        
+
     }
 
     public Social(String uid, String plattform, String account) {
@@ -17,7 +17,6 @@ public class Social {
         this.account = account;
 
     }
-
 
     // Getters:
 
@@ -33,15 +32,23 @@ public class Social {
         return account;
     }
 
-
     // Setters:
-
 
     // Helpers:
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        boolean equal = false;
+
+        if (obj instanceof Social) {
+            Social com = (Social) obj;
+            if (this.account.equals(com.getAccount()) && this.plattform.equals(com.getPlattform())
+                    && this.uid.equals(com.getUid())) {
+                equal = true;
+            }
+        }
+
+        return equal;
     }
 
 }

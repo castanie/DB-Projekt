@@ -12,7 +12,7 @@ public class Buchung {
     private Integer gastnr;
 
     public Buchung() {
-        
+
     }
 
     public Buchung(Integer buchungNr, String uid, String zimmer, Date anreise, Date abreise, Integer gastnr) {
@@ -47,11 +47,10 @@ public class Buchung {
     public Date getAbreise() {
         return abreise;
     }
-    
+
     public Integer getGastnr() {
         return gastnr;
     }
-
 
     // Setters:
 
@@ -63,12 +62,22 @@ public class Buchung {
         this.abreise = abreise;
     }
 
-
     // Helpers:
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        boolean equal = false;
+
+        if (obj instanceof Buchung) {
+            Buchung com = (Buchung) obj;
+            if (this.abreise.equals(com.getAbreise()) && this.anreise.equals(com.getAnreise())
+                    && this.buchungNr.equals(com.getBuchungNr()) && this.gastnr.equals(com.getGastnr())
+                    && this.uid.equals(com.getUid()) && this.zimmer.equals(com.getZimmer())) {
+                equal = true;
+            }
+        }
+
+        return equal;
     }
 
 }

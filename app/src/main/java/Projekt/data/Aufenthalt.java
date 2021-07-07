@@ -2,37 +2,44 @@ package Projekt.data;
 
 public class Aufenthalt {
 
-    private int buchungNr;
-    private int gastNr;
+    private Integer buchungNr;
+    private Integer gastNr;
 
     public Aufenthalt() {
 
     }
 
-    public Aufenthalt(int buchungNr, int gastNr) {
+    public Aufenthalt(Integer buchungNr, Integer gastNr) {
         this.buchungNr = buchungNr;
         this.gastNr = gastNr;
     }
 
-
     // Getters:
 
-    public int getBuchungNr() {
+    public Integer getBuchungNr() {
         return buchungNr;
     }
 
-    public int getGastNr() {
+    public Integer getGastNr() {
         return gastNr;
     }
 
     // Setters:
 
-
     // Helpers:
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        boolean equal = false;
+
+        if (obj instanceof Aufenthalt) {
+            Aufenthalt com = (Aufenthalt) obj;
+            if (this.buchungNr.equals(com.getBuchungNr()) && this.gastNr.equals(com.getGastNr())) {
+                equal = true;
+            }
+        }
+
+        return equal;
     }
 
 }
